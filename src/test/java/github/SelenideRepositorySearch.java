@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 import com.codeborne.selenide.Configuration;
 
-@Tag("remote")
+
 public class SelenideRepositorySearch {
 
     @BeforeAll
