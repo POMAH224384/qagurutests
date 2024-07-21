@@ -6,12 +6,15 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pages.RegistrationPage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
-@Tag("ui_test_remote")
 public class PracticeFromRemoteTest {
 
     protected RegistrationPage registrationPage = new RegistrationPage();
@@ -19,10 +22,13 @@ public class PracticeFromRemoteTest {
     @BeforeAll
     static void setUpBeforeClass() {
         Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browser = "chrome";
+        Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
         Configuration.remote = "http://localhost:8080/wd/hub";
     }
 
+    @Tag("remote")
     @Test
     void testPracticeFromTestCssSelector(){
 
