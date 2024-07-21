@@ -47,6 +47,12 @@ test {
 
 task simple_test(type: Test) {
     useJUnitPlatform {
-        includeTags("simple", "ui_test_remote")
+        includeTags("simple")
+    }
+}
+
+task ui_test_remote(type: Test) {
+    useJUnitPlatform {
+        includeTags("ui_test_remote")
     }
 }
