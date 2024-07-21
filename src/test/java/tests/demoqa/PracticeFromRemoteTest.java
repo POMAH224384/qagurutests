@@ -1,16 +1,27 @@
 package tests.demoqa;
 
+import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 @Tag("ui_test_remote")
-public class PracticeFromRemoteTest extends TestBaseExtended{
+public class PracticeFromRemoteTest {
 
+    protected RegistrationPage registrationPage = new RegistrationPage();
+
+    @BeforeAll
+    static void setUpBeforeClass() {
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.browserSize = "1920x1080";
+        Configuration.remote = "http://localhost:8080/wd/hub";
+    }
 
     @Test
     void testPracticeFromTestCssSelector(){
@@ -54,23 +65,5 @@ public class PracticeFromRemoteTest extends TestBaseExtended{
                         .verifyResults("Address", currentAddress)
                         .verifyResults("State and City", "NCR Delhi");
 
-    }
-
-    @Test
-    @Disabled("Test is not ready")
-    void testPracticeFromTestXpathSelector(){
-
-        open("/automation-practice-form");
-
-        $x("//*[@id='firstName']").setValue("FirstName");
-        $x("//*[@id='lastName']").setValue("Last Name");
-        $x("//*[@id='userEmail']").setValue("test@email.com");
-        $x("//*[@id='userNumber']").setValue("1234567890");
-        $x("//*[@id='gender-ration-3']").parent().click();
-        $x("//*[@id='dateOfBirthInput']").click();
-        $x("//*[@class='react-datepicker__month-select']").selectOption("July");
-        $x("//*[@class='react-datepicker__year-select']").selectOption("2009");
-        $x("//*[@class='react-datepicker__day--030']" +
-                "[not(contains(@class, 'react-datepicker__day--outside-month'))]").click();
     }
 }
