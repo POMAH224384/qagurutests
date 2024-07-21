@@ -3,11 +3,13 @@ package tests.demoqa;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
+@Tag("ui_test")
 public class FileDownloadTest {
 
     @Test

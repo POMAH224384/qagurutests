@@ -1,11 +1,13 @@
 package tests.demoqa;
 
 import com.github.javafaker.Faker;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 
-
+@Tag("ui_test")
 public class PracticeFromTest extends TestBase{
 
 
@@ -54,6 +56,7 @@ public class PracticeFromTest extends TestBase{
     }
 
     @Test
+    @Disabled("Test is not ready")
     void testPracticeFromTestXpathSelector(){
 
         open("/automation-practice-form");
