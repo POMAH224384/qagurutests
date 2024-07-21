@@ -1,12 +1,20 @@
 package tests.simple;
 
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Tag("simple")
+@Tag("remote")
 public class PositiveTests {
+
+    @BeforeAll
+    static void setUpBeforeClass() {
+        Configuration.browserSize = "1920x1080";
+        Configuration.remote = "http://localhost:8080/wd/hub";
+    }
 
     @Test
     void test1(){
