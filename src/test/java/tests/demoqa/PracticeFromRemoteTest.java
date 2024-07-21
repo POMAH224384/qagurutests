@@ -28,7 +28,6 @@ public class PracticeFromRemoteTest {
         Configuration.remote = "http://localhost:8080/wd/hub";
     }
 
-    @Tag("remote")
     @Test
     void testPracticeFromTestCssSelector(){
 
