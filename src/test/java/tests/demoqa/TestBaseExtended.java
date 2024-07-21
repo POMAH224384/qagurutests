@@ -2,8 +2,10 @@ package tests.demoqa;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import pages.RegistrationPage;
 
+@Tag("ui_test_remote")
 public class TestBaseExtended {
 
     protected RegistrationPage registrationPage = new RegistrationPage();
