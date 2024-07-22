@@ -11,6 +11,8 @@ import org.openqa.selenium.remote.CommandExecutor;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import javax.print.DocFlavor;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,14 +30,14 @@ public class StepsTest {
     private static final int ISSUE_NUMBER = 80;
 
     @BeforeAll
-    static void beforeAll() {
+    static void beforeAll() throws MalformedURLException {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
         Configuration.remote = "http://localhost:4444/wd/hub";
 
         ChromeOptions options = new ChromeOptions();
-
+        options.setCapability("browserVersion", "104.0");
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
             /* How to add test badge */
             put("name", "Test badge...");
@@ -56,10 +58,7 @@ public class StepsTest {
             /* How to enable video recording */
             put("enableVideo", true);
         }});
-        RemoteWebDriver driver = new RemoteWebDriver(
-                (CommandExecutor) new DocFlavor.URL("http://localhost:4444/wd/hub"),
-                options);
-
+        RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
         Configuration.browserCapabilities = options;
     }
 
