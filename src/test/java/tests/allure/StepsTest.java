@@ -34,7 +34,7 @@ public class StepsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://selenoid:4444/wd/hub";
+        Configuration.remote = "http://localhost:4444/wd/hub";
 
 //        ChromeOptions options = new ChromeOptions();
 //        options.setCapability("browserVersion", "104.0");
