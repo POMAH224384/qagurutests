@@ -22,7 +22,7 @@ public class AttachmentsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://172.17.0.5:4444/wd/hub";
+        Configuration.remote = "http://localhost:8080";
     }
 
     @Test
