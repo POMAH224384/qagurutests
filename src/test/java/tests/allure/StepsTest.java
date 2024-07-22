@@ -25,7 +25,7 @@ public class StepsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://0.0.0.0:8080/wd/hub";
+        Configuration.remote = "http://localhost:4444/wd/hub";
     }
 
     @Test
