@@ -34,32 +34,32 @@ public class StepsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.remote = "http://selenoid:4444/wd/hub";
 
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability("browserVersion", "104.0");
-        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
-            /* How to add test badge */
-            put("name", "Test badge...");
-
-            /* How to set session timeout */
-            put("sessionTimeout", "15m");
-
-            /* How to set timezone */
-            put("env", new ArrayList<String>() {{
-                add("TZ=UTC");
-            }});
-
-            /* How to add "trash" button */
-            put("labels", new HashMap<String, Object>() {{
-                put("manual", "true");
-            }});
-
-            /* How to enable video recording */
-            put("enableVideo", true);
-        }});
-        RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-        Configuration.browserCapabilities = options;
+//        ChromeOptions options = new ChromeOptions();
+//        options.setCapability("browserVersion", "104.0");
+//        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
+//            /* How to add test badge */
+//            put("name", "Test badge...");
+//
+//            /* How to set session timeout */
+//            put("sessionTimeout", "15m");
+//
+//            /* How to set timezone */
+//            put("env", new ArrayList<String>() {{
+//                add("TZ=UTC");
+//            }});
+//
+//            /* How to add "trash" button */
+//            put("labels", new HashMap<String, Object>() {{
+//                put("manual", "true");
+//            }});
+//
+//            /* How to enable video recording */
+//            put("enableVideo", true);
+//        }});
+//        RemoteWebDriver driver = new RemoteWebDriver(new URL("http://selenoid:4444/wd/hub"), options);
+//        Configuration.browserCapabilities = options;
     }
 
     @Test
