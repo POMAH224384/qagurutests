@@ -6,6 +6,9 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selectors.withText;
@@ -22,7 +25,13 @@ public class AttachmentsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://selenoid:4444/wd/hub";
+        Configuration.remote = "http://selenoid:4444/wd/hub/";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenium:options", Map.of(
+                "enableVNC", true
+        ));
+        Configuration.browserCapabilities = capabilities;
     }
 
     @Test

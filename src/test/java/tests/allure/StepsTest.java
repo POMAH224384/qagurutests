@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CommandExecutor;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import javax.print.DocFlavor;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selectors.withText;
@@ -34,8 +36,13 @@ public class StepsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://selenoid:4444/wd/hub";
+        Configuration.remote = "http://selenoid:4444/wd/hub/";
 
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("selenium:options", Map.of(
+                "enableVNC", true
+        ));
+        Configuration.browserCapabilities = capabilities;
 //        ChromeOptions options = new ChromeOptions();
 //        options.setCapability("browserVersion", "104.0");
 //        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
