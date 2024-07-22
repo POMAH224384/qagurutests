@@ -6,6 +6,13 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CommandExecutor;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import javax.print.DocFlavor;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selectors.withText;
@@ -26,6 +33,34 @@ public class StepsTest {
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
         Configuration.remote = "http://localhost:4444/wd/hub";
+
+        ChromeOptions options = new ChromeOptions();
+
+        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
+            /* How to add test badge */
+            put("name", "Test badge...");
+
+            /* How to set session timeout */
+            put("sessionTimeout", "15m");
+
+            /* How to set timezone */
+            put("env", new ArrayList<String>() {{
+                add("TZ=UTC");
+            }});
+
+            /* How to add "trash" button */
+            put("labels", new HashMap<String, Object>() {{
+                put("manual", "true");
+            }});
+
+            /* How to enable video recording */
+            put("enableVideo", true);
+        }});
+        RemoteWebDriver driver = new RemoteWebDriver(
+                (CommandExecutor) new DocFlavor.URL("http://localhost:4444/wd/hub"),
+                options);
+
+        Configuration.browserCapabilities = options;
     }
 
     @Test
