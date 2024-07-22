@@ -1,7 +1,9 @@
 package tests.allure;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +19,14 @@ public class StepsTest {
 
     private static final String REPOSITORY = "eroshenkoam/allure-example";
     private static final int ISSUE_NUMBER = 80;
+
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.browser = "chrome";
+        Configuration.browserVersion = "104.0";
+        Configuration.browserSize = "1920x1080";
+        Configuration.remote = "http://localhost:8080/wd/hub";
+    }
 
     @Test
     void testLambdaTest(){
