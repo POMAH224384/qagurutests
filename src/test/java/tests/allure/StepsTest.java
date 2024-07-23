@@ -35,13 +35,13 @@ public class StepsTest {
     @BeforeAll
     static void beforeAll() {
         Configuration.browser = "chrome";
-        Configuration.browserVersion = "104.0";
+        Configuration.browserVersion = "125.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://127.0.0.1:4444/wd/hub/";
+        Configuration.remote = "http://185.129.51.98:4444/wd/hub/";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
-        capabilities.setVersion("104.0");
+        capabilities.setVersion("125.0");
         capabilities.setCapability("acceptInsecureCerts", true);
 
         HashMap<String, Object> chromeOptions = new HashMap<>();
