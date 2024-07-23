@@ -32,7 +32,7 @@ public class StepsTest {
     private static final int ISSUE_NUMBER = 80;
 
     @BeforeAll
-    static void beforeAll() throws MalformedURLException {
+    static void beforeAll() {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
