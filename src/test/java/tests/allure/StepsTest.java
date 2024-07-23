@@ -36,7 +36,7 @@ public class StepsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://127.0.0.1:4444/wd/hub/";
+        Configuration.remote = "http://127.0.0.1:8080/wd/hub/";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenium:options", Map.of(
