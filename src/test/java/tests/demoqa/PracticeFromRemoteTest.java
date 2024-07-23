@@ -6,7 +6,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.RegistrationPage;
 
 import java.util.ArrayList;
@@ -20,12 +22,30 @@ public class PracticeFromRemoteTest {
     protected RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
-    static void setUpBeforeClass() {
-        Configuration.baseUrl = "https://demoqa.com";
+    static void setup() {
+        Configuration.remote = "http://185.129.51.98:4444/wd/hub";
+
+        // Настройка браузера
         Configuration.browser = "chrome";
-        Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://localhost:8080/wd/hub";
+        Configuration.browserVersion = "125.0";
+        Configuration.baseUrl = "https://demoqa.com/";
+
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("125.0");
+        capabilities.setCapability("acceptInsecureCerts", true);
+
+        HashMap<String, Object> chromeOptions = new HashMap<>();
+        capabilities.setCapability("goog:chromeOptions", chromeOptions);
+
+        HashMap<String, Object> selenoidOptions = new HashMap<>();
+        selenoidOptions.put("enableVNC", true);
+        selenoidOptions.put("enableVideo", false);
+        capabilities.setCapability("selenoid:options", selenoidOptions);
+
+        Configuration.browserCapabilities = capabilities;
     }
 
     @Test

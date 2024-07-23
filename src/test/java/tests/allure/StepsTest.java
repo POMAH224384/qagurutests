@@ -22,6 +22,7 @@ import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 import static io.qameta.allure.Allure.step;
 import static org.openqa.selenium.By.linkText;
 
@@ -36,12 +37,21 @@ public class StepsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://127.0.0.1:8080/wd/hub/";
+        Configuration.remote = "http://127.0.0.1:4444/wd/hub/";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("selenium:options", Map.of(
-                "enableVNC", true
-        ));
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("104.0");
+        capabilities.setCapability("acceptInsecureCerts", true);
+
+        HashMap<String, Object> chromeOptions = new HashMap<>();
+        capabilities.setCapability("goog:chromeOptions", chromeOptions);
+
+        HashMap<String, Object> selenoidOptions = new HashMap<>();
+        selenoidOptions.put("enableVNC", true);
+        selenoidOptions.put("enableVideo", false);
+        capabilities.setCapability("selenoid:options", selenoidOptions);
+
         Configuration.browserCapabilities = capabilities;
 //        ChromeOptions options = new ChromeOptions();
 //        options.setCapability("browserVersion", "104.0");
@@ -83,6 +93,8 @@ public class StepsTest {
         step("Кликаем по ссылке репозитория " + REPOSITORY, () -> $(linkText(REPOSITORY)).click());
 
         step("Открываем таб Issue", () -> $("#issues-tab").click());
+
+        sleep(5000);
 
         step("Проверяем наличие Issue с номером " + ISSUE_NUMBER, () -> {
 
