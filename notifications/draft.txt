@@ -1,0 +1,8 @@
+https://api.telegram.org/bot6363853409:AAG0QVds3JtPDKYFTafpUaeaUbpmKkV0cjM/getUpdates
+
+6363853409:AAG0QVds3JtPDKYFTafpUaeaUbpmKkV0cjM
+
+chatId = -1002161090611
+
+run jar with notification
+java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.6.1.jar

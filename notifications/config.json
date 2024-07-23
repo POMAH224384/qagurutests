@@ -1,0 +1,17 @@
+{
+  "base": {
+    "logo": "",
+    "project": "test",
+    "environment": "env",
+    "comment": "MR. Penis @dumbbells97",
+    "reportLink": "",
+    "language": "ru",
+    "allureFolder": "build/reports/allure-report/allureReport",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "6363853409:AAG0QVds3JtPDKYFTafpUaeaUbpmKkV0cjM",
+    "chat": "-1002161090611",
+    "replyTo": ""
+  }
+}
