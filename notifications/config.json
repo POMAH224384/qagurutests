@@ -6,7 +6,7 @@
     "comment": "MR. Penis @dumbbells97",
     "reportLink": "",
     "language": "ru",
-    "allureFolder": "build/reports/allure-report/allureReport",
+    "allureFolder": "/allure-report/",
     "enableChart": true
   },
   "telegram": {
