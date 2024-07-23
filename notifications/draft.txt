@@ -6,3 +6,39 @@ chatId = -1002161090611
 
 run jar with notification
 java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications-4.6.1.jar
+
+
+
+stage('Create/Update Text File') {
+            steps {
+                script {
+
+                    def filePath = 'notifications/config.json'
+
+
+                    def fileContent = """{
+  "base": {
+    "logo": "",
+    "project": "${env.JOB_BASE_NAME}",
+    "environment": "env",
+    "comment": "@dumbbells97",
+    "reportLink": "${env.BUILD_URL}",
+    "language": "ru",
+    "allureFolder": "./allure-report/",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "6363853409:AAG0QVds3JtPDKYFTafpUaeaUbpmKkV0cjM",
+    "chat": "-1002161090611",
+    "replyTo": ""
+  }
+}"""
+
+
+                    writeFile file: filePath, text: fileContent
+
+
+                    echo readFile(filePath)
+                }
+            }
+        }

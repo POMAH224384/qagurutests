@@ -23,7 +23,7 @@ public class PracticeFromRemoteTest {
 
     @BeforeAll
     static void setup() {
-        Configuration.remote = "http://185.129.51.98:4444/wd/hub";
+        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
 
         // Настройка браузера
         Configuration.browser = "chrome";

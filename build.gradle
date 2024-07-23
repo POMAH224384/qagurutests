@@ -31,7 +31,10 @@ dependencies {
             "org.slf4j:slf4j-simple:2.0.6",
             "com.codeborne:xls-test:1.4.3",
             "com.codeborne:pdf-test:1.5.0",
-            'io.qameta.allure:allure-selenide:2.19.0'
+            'io.qameta.allure:allure-selenide:2.19.0',
+            "org.seleniumhq.selenium:selenium-java:3.141.59",
+            "io.github.bonigarcia:webdrivermanager:5.9.1",
+            "org.aeonbits.owner:owner:1.0.4"
     )
 
 
@@ -43,6 +46,7 @@ tasks.withType(JavaCompile) {
 
 test {
     useJUnitPlatform()
+    systemProperties(System.getProperties())
 }
 
 task simple_test(type: Test) {
@@ -55,4 +59,11 @@ task remote_test(type: Test) {
     useJUnitPlatform {
         includeTags("remote")
     }
+}
+
+task selenium_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("selenium")
+    }
+    systemProperties(System.getProperties())
 }
