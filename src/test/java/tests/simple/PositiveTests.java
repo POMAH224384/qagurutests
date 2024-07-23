@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
+@Tag("simple")
 public class PositiveTests {
 
     @BeforeAll
