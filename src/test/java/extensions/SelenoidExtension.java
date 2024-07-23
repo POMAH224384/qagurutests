@@ -1,4 +1,4 @@
-package tests.demoqa;
+package extensions;
 
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
