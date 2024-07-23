@@ -17,7 +17,6 @@ import static io.qameta.allure.Allure.attachment;
 import static io.qameta.allure.Allure.step;
 import static org.openqa.selenium.By.linkText;
 
-@Tag("remote")
 public class AttachmentsTest {
 
     @BeforeAll
@@ -25,8 +24,7 @@ public class AttachmentsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "104.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://selenoid:4444/wd/hub/";
-
+        Configuration.remote = "http://localhost:8081/wd/hub/";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("selenium:options", Map.of(
                 "enableVNC", true
