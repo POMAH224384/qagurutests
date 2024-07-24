@@ -22,7 +22,7 @@ public class WebDriverProvider implements Supplier<WebDriver> {
 
     @Override
     public WebDriver get() {
-//        RemoteWebDriver remoteWebDriver = createRemoteWebDriver();
+        RemoteWebDriver remoteWebDriver = createRemoteWebDriver();
         WebDriver driver = createWebDriver();
         driver.get(config.getBaseUrl());
         return driver;
@@ -48,10 +48,10 @@ public class WebDriverProvider implements Supplier<WebDriver> {
         }
     }
 
-//    public RemoteWebDriver createRemoteWebDriver() {
-//        ChromeOptions options = new ChromeOptions();
-//        options.setCapability("browserVersion", "125.0");
-//        RemoteWebDriver remoteWebDriver = new RemoteWebDriver(config.getRemoteUrl(), options);
-//        return remoteWebDriver;
-//    }
+    public RemoteWebDriver createRemoteWebDriver() {
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability("browserVersion", "125.0");
+        RemoteWebDriver remoteWebDriver = new RemoteWebDriver(config.getRemoteUrl(), options);
+        return remoteWebDriver;
+    }
 }

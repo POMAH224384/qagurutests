@@ -4,17 +4,19 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import tests.demoqa.config.PracticeFormConfig;
 
 import java.util.HashMap;
 
 public class SelenoidExtension implements BeforeAllCallback {
 
+    private PracticeFormConfig config;
+
     @Override
     public void beforeAll(ExtensionContext extensionContext) throws Exception {
 
         // Установка URL для удаленного WebDriver (Selenoid)
-        Configuration.remote = "http://185.129.51.98:4444/wd/hub";
-
+        Configuration.remote = getRemoteUrl();
         // Настройка браузера
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
@@ -48,9 +50,10 @@ public class SelenoidExtension implements BeforeAllCallback {
 
         Configuration.browserCapabilities = capabilities;
 
-        // Установка базового URL для тестов
-//        Configuration.baseUrl = "http://localhost:8080";
+    }
 
+    public String getRemoteUrl(){
+        return System.getProperty("remoteUrl", "http://localhost:4444/wd/hub");
     }
 
 

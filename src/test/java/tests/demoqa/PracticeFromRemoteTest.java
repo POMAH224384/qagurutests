@@ -2,6 +2,7 @@ package tests.demoqa;
 
 import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
+import extensions.SelenoidExtension;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
@@ -19,37 +20,38 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
 @Tag("remote")
+@ExtendWith(SelenoidExtension.class)
 public class PracticeFromRemoteTest {
 
     protected RegistrationPage registrationPage = new RegistrationPage();
-    private static PracticeFormConfig config;
-
-    @BeforeAll
-    static void setup() {
-        Configuration.remote = config.getRemoteUrl();
-
-        // Настройка браузера
-        Configuration.browser = "chrome";
-        Configuration.browserSize = "1920x1080";
-        Configuration.browserVersion = "125.0";
-        Configuration.baseUrl = "https://demoqa.com/";
 
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName("chrome");
-        capabilities.setVersion("125.0");
-        capabilities.setCapability("acceptInsecureCerts", true);
-
-        HashMap<String, Object> chromeOptions = new HashMap<>();
-        capabilities.setCapability("goog:chromeOptions", chromeOptions);
-
-        HashMap<String, Object> selenoidOptions = new HashMap<>();
-        selenoidOptions.put("enableVNC", true);
-        selenoidOptions.put("enableVideo", false);
-        capabilities.setCapability("selenoid:options", selenoidOptions);
-
-        Configuration.browserCapabilities = capabilities;
-    }
+//    @BeforeAll
+//    static void setup() {
+//        Configuration.remote = getRemoteUrl();
+//
+//        // Настройка браузера
+//        Configuration.browser = "chrome";
+//        Configuration.browserSize = "1920x1080";
+//        Configuration.browserVersion = "125.0";
+//        Configuration.baseUrl = "https://demoqa.com/";
+//
+//
+//        DesiredCapabilities capabilities = new DesiredCapabilities();
+//        capabilities.setBrowserName("chrome");
+//        capabilities.setVersion("125.0");
+//        capabilities.setCapability("acceptInsecureCerts", true);
+//
+//        HashMap<String, Object> chromeOptions = new HashMap<>();
+//        capabilities.setCapability("goog:chromeOptions", chromeOptions);
+//
+//        HashMap<String, Object> selenoidOptions = new HashMap<>();
+//        selenoidOptions.put("enableVNC", true);
+//        selenoidOptions.put("enableVideo", false);
+//        capabilities.setCapability("selenoid:options", selenoidOptions);
+//
+//        Configuration.browserCapabilities = capabilities;
+//    }
 
     @Test
     void testPracticeFromTestCssSelector(){
@@ -93,5 +95,10 @@ public class PracticeFromRemoteTest {
                         .verifyResults("Address", currentAddress)
                         .verifyResults("State and City", "NCR Delhi");
 
+    }
+
+    public String getRemoteUrl(){
+        String remoteUrl = System.getProperty("remoteUrl", "http://127.0.0.1:4444");
+        return remoteUrl;
     }
 }
