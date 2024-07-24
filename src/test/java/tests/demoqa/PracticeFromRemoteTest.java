@@ -96,9 +96,4 @@ public class PracticeFromRemoteTest {
                         .verifyResults("State and City", "NCR Delhi");
 
     }
-
-    public String getRemoteUrl(){
-        String remoteUrl = System.getProperty("remoteUrl", "http://127.0.0.1:4444");
-        return remoteUrl;
-    }
 }

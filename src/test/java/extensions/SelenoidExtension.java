@@ -53,7 +53,11 @@ public class SelenoidExtension implements BeforeAllCallback {
     }
 
     public String getRemoteUrl(){
-        return System.getProperty("remoteUrl", "http://localhost:4444/wd/hub");
+        String remoteUrl = System.getProperty("remoteUrl");
+        if(remoteUrl == null){
+            remoteUrl = "http://localhost:4444/wd/hub";
+        }
+        return remoteUrl;
     }
 
 
