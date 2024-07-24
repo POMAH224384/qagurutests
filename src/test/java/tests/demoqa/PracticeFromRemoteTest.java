@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.RegistrationPage;
+import tests.demoqa.config.PracticeFormConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,13 +18,15 @@ import java.util.HashMap;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.open;
 
+@Tag("remote")
 public class PracticeFromRemoteTest {
 
     protected RegistrationPage registrationPage = new RegistrationPage();
+    private static PracticeFormConfig config;
 
     @BeforeAll
     static void setup() {
-        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
+        Configuration.remote = config.getRemoteUrl();
 
         // Настройка браузера
         Configuration.browser = "chrome";
