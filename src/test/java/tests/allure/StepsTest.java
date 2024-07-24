@@ -28,7 +28,7 @@ public class StepsTest {
         Configuration.browser = "chrome";
         Configuration.browserVersion = "125.0";
         Configuration.browserSize = "1920x1080";
-        Configuration.remote = "http://127.0.0.1:4444/wd/hub/";
+        Configuration.remote = "http://185:4444/wd/hub/";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
