@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer"
+    },
+    "used": {
+      "type": "integer"
+    },
+    "queued": {
+      "type": "integer"
+    },
+    "pending": {
+      "type": "integer"
+    },
+    "browsers": {
+      "type": "object",
+      "properties": {
+        "chrome": {
+          "type": "object",
+          "properties": {
+            "125.0": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "125.0"
+          ]
+        }
+      },
+      "required": [
+        "chrome"
+      ]
+    }
+  },
+  "required": [
+    "total",
+    "used",
+    "queued",
+    "pending",
+    "browsers"
+  ]
+}

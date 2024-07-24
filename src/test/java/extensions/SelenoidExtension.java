@@ -30,16 +30,6 @@ public class SelenoidExtension implements BeforeAllCallback {
 
         // Настройка опций Chrome
         HashMap<String, Object> chromeOptions = new HashMap<>();
-//        chromeOptions.put("args", Arrays.asList("--proxy-bypass-list=<-loopb...", "--disable-dev-shm-usage", "--window-size=1920,1080"));
-//        chromeOptions.put("excludeSwitches", Arrays.asList("enable-automation", "load-extension"));
-//        chromeOptions.put("prefs", new HashMap<String, Object>() {{
-//            put("credentials_enable_service", false);
-//            put("plugins.always_open_pdf_externally", true);
-//            put("profile.default_content_setting_values.automatic_downloads", 1);
-//            put("profile.password_manager_enabled", false);
-//            put("profile.password_manager_leak_detection", false);
-//            put("safebrowsing.enabled", true);
-//        }});
         capabilities.setCapability("goog:chromeOptions", chromeOptions);
 
         // Настройки для Selenoid
