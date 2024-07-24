@@ -28,7 +28,7 @@ public class RegistrationPage {
     public RegistrationPage openPage(){
         String titleText = "Student Registration Form";
 
-        open("/automation-practice-form");
+        open("https://demoqa.com/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text(titleText));
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
