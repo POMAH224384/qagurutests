@@ -59,6 +59,7 @@ task remote_test(type: Test) {
     useJUnitPlatform {
         includeTags("remote")
     }
+    systemProperties(System.getProperties())
 }
 
 task selenium_test(type: Test) {
