@@ -1,50 +1,54 @@
 package tests.restapi;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import tests.restapi.lombok.LoginBody;
+import tests.restapi.lombok.LoginResponse;
+import tests.restapi.specs.ReqresSpecs;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("api")
-public class ReqresInTest {
+public class LoginTest {
 
     @Test
     void successfulLoginTest(){
-        String body = "{ \"email\": \"eve.holt@reqres.in\", \"password\": \"cityslicka\" }";
+        LoginBody loginBody = new LoginBody();
+        loginBody.setEmail("eve.holt@reqres.in");
+        loginBody.setPassword("cityslicka");
 
-        given()
-                .log().uri()
-                .log().method()
-                .body(body)
-                .contentType(ContentType.JSON)
+        LoginResponse response = ReqresSpecs.request
+                .body(loginBody)
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("/login")
                 .then()
-                .log().status()
-                .log().body()
-                .statusCode(200)
-                .body("token", is("QpwL5tke4Pnpja7X4"));
+                .spec(ReqresSpecs.responseSpec)
+                .extract().as(LoginResponse.class);
+
+        assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
 
     }
 
     @Test
     void unsuccessfulLoginTestEmailNull(){
-        String body = "{ \"password\": \"cityslicka\" }";
+        LoginBody loginBody = new LoginBody();
+        loginBody.setEmail(null);
+        loginBody.setPassword("cityslicka");
 
-        given()
-                .log().uri()
-                .log().method()
-                .body(body)
-                .contentType(ContentType.JSON)
+        LoginResponse response = ReqresSpecs.request
+                .filter(new AllureRestAssured())
+                .body(loginBody)
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("/login")
                 .then()
-                .log().status()
-                .log().body()
                 .statusCode(400)
-                .body("error", is("Missing email or username"));
+                .extract().as(LoginResponse.class);
+
+        assertEquals("Missing email or username", response.getError());
 
     }
 
