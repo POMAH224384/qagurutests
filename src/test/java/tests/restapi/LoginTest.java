@@ -22,15 +22,15 @@ public class LoginTest {
         loginBody.setEmail("eve.holt@reqres.in");
         loginBody.setPassword("cityslicka");
 
-        LoginResponse response = step("Make request", () ->ReqresSpecs.request
+        LoginResponse response = ReqresSpecs.request
                 .body(loginBody)
                 .when()
                 .post("/login")
                 .then()
                 .spec(ReqresSpecs.responseSpec)
-                .extract().as(LoginResponse.class));
+                .extract().as(LoginResponse.class);
 
-        step("Verify response", () -> assertEquals("QpwL5tke4Pnpja7X4", response.getToken()));
+        assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
 
     }
 
@@ -40,16 +40,16 @@ public class LoginTest {
         loginBody.setEmail(null);
         loginBody.setPassword("cityslicka");
 
-        LoginResponse response = step("Make request", () -> ReqresSpecs.request
+        LoginResponse response =  ReqresSpecs.request
                 .filter(new AllureRestAssured())
                 .body(loginBody)
                 .when()
                 .post("/login")
                 .then()
                 .statusCode(400)
-                .extract().as(LoginResponse.class));
+                .extract().as(LoginResponse.class);
 
-        step("Verify response", () -> assertEquals("Missing email or username", response.getError()));
+        assertEquals("Missing email or username", response.getError());
 
     }
 
@@ -59,15 +59,15 @@ public class LoginTest {
         loginBody.setEmail("eve.holt@reqres.in");
         loginBody.setPassword(null);
 
-        LoginResponse response = step("Make request", () -> ReqresSpecs.request
+        LoginResponse response =  ReqresSpecs.request
                 .body(loginBody)
                 .when()
                 .post("/login")
                 .then()
                 .statusCode(400)
-                .extract().as(LoginResponse.class));
+                .extract().as(LoginResponse.class);
 
-        step("Verify response", () -> assertEquals("Missing password", response.getError()));
+        assertEquals("Missing password", response.getError());
     }
 
     @Test
@@ -76,15 +76,14 @@ public class LoginTest {
         loginBody.setEmail(null);
         loginBody.setPassword(null);
 
-        LoginResponse loginResponse = step("Make request", () -> ReqresSpecs.request
+        LoginResponse loginResponse = ReqresSpecs.request
                 .body(loginBody)
                 .when()
                 .post("/login")
                 .then()
                 .statusCode(400)
-                .extract().as(LoginResponse.class));
+                .extract().as(LoginResponse.class);
 
-        step("Verify response",
-                () -> assertEquals("Missing email or username", loginResponse.getError()));
+        assertEquals("Missing email or username", loginResponse.getError());
     }
 }
