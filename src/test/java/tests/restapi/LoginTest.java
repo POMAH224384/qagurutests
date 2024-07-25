@@ -64,7 +64,6 @@ public class LoginTest {
                 .when()
                 .post("/login")
                 .then()
-                .spec(ReqresSpecs.responseSpec)
                 .statusCode(400)
                 .extract().as(LoginResponse.class));
 
@@ -82,7 +81,6 @@ public class LoginTest {
                 .when()
                 .post("/login")
                 .then()
-                .spec(ReqresSpecs.responseSpec)
                 .statusCode(400)
                 .extract().as(LoginResponse.class));
 
