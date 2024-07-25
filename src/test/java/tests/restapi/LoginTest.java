@@ -8,6 +8,7 @@ import tests.restapi.lombok.LoginBody;
 import tests.restapi.lombok.LoginResponse;
 import tests.restapi.specs.ReqresSpecs;
 
+import static io.qameta.allure.Allure.step;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,15 +22,15 @@ public class LoginTest {
         loginBody.setEmail("eve.holt@reqres.in");
         loginBody.setPassword("cityslicka");
 
-        LoginResponse response = ReqresSpecs.request
+        LoginResponse response = step("Make request", () ->ReqresSpecs.request
                 .body(loginBody)
                 .when()
                 .post("/login")
                 .then()
                 .spec(ReqresSpecs.responseSpec)
-                .extract().as(LoginResponse.class);
+                .extract().as(LoginResponse.class));
 
-        assertEquals("QpwL5tke4Pnpja7X4", response.getToken());
+        step("Verify response", () -> assertEquals("QpwL5tke4Pnpja7X4", response.getToken()));
 
     }
 
@@ -39,54 +40,53 @@ public class LoginTest {
         loginBody.setEmail(null);
         loginBody.setPassword("cityslicka");
 
-        LoginResponse response = ReqresSpecs.request
+        LoginResponse response = step("Make request", () -> ReqresSpecs.request
                 .filter(new AllureRestAssured())
                 .body(loginBody)
                 .when()
                 .post("/login")
                 .then()
                 .statusCode(400)
-                .extract().as(LoginResponse.class);
+                .extract().as(LoginResponse.class));
 
-        assertEquals("Missing email or username", response.getError());
+        step("Verify response", () -> assertEquals("Missing email or username", response.getError()));
 
     }
 
     @Test
     void unsuccessfulLoginTestPasswordNull(){
-        String body = "{ \"email\": \"eve.holt@reqres.in\" }";
+        LoginBody loginBody = new LoginBody();
+        loginBody.setEmail("eve.holt@reqres.in");
+        loginBody.setPassword(null);
 
-        given()
-                .log().uri()
-                .log().method()
-                .body(body)
-                .contentType(ContentType.JSON)
+        LoginResponse response = step("Make request", () -> ReqresSpecs.request
+                .body(loginBody)
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("/login")
                 .then()
-                .log().status()
-                .log().body()
+                .spec(ReqresSpecs.responseSpec)
                 .statusCode(400)
-                .body("error", is("Missing password"));
+                .extract().as(LoginResponse.class));
 
+        step("Verify response", () -> assertEquals("Missing password", response.getError()));
     }
 
     @Test
     void unsuccessfulLoginTestBodyNull(){
-        String body = "";
+        LoginBody loginBody = new LoginBody();
+        loginBody.setEmail(null);
+        loginBody.setPassword(null);
 
-        given()
-                .log().uri()
-                .log().method()
-                .body(body)
-                .contentType(ContentType.JSON)
+        LoginResponse loginResponse = step("Make request", () -> ReqresSpecs.request
+                .body(loginBody)
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("/login")
                 .then()
-                .log().status()
-                .log().body()
+                .spec(ReqresSpecs.responseSpec)
                 .statusCode(400)
-                .body("error", is("Missing email or username"));
+                .extract().as(LoginResponse.class));
 
+        step("Verify response",
+                () -> assertEquals("Missing email or username", loginResponse.getError()));
     }
 }
