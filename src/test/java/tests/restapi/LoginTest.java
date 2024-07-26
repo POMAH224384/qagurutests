@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Tag("api")
 public class LoginTest {
 
+    private AllureRestAssured restAssured = new AllureRestAssured();
+
     @Test
     void successfulLoginTest(){
         LoginBody loginBody = new LoginBody();
@@ -23,7 +25,7 @@ public class LoginTest {
         loginBody.setPassword("cityslicka");
 
         LoginResponse response = ReqresSpecs.request
-                .filter(new AllureRestAssured())
+                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -42,7 +44,7 @@ public class LoginTest {
         loginBody.setPassword("cityslicka");
 
         LoginResponse response =  ReqresSpecs.request
-                .filter(new AllureRestAssured())
+                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -61,7 +63,7 @@ public class LoginTest {
         loginBody.setPassword(null);
 
         LoginResponse response =  ReqresSpecs.request
-                .filter(new AllureRestAssured())
+                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -79,7 +81,7 @@ public class LoginTest {
         loginBody.setPassword(null);
 
         LoginResponse loginResponse = ReqresSpecs.request
-                .filter(new AllureRestAssured())
+                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")
