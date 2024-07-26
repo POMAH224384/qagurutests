@@ -2,6 +2,7 @@ package tests.restapi;
 
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import tests.restapi.lombok.LoginBody;
@@ -16,16 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Tag("api")
 public class LoginTest {
 
-    private AllureRestAssured restAssured = new AllureRestAssured();
-
     @Test
+    @DisplayName("Successful Login with password and email")
     void successfulLoginTest(){
         LoginBody loginBody = new LoginBody();
         loginBody.setEmail("eve.holt@reqres.in");
         loginBody.setPassword("cityslicka");
 
         LoginResponse response = ReqresSpecs.request
-                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -38,13 +37,13 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Unsuccessful login without email")
     void unsuccessfulLoginTestEmailNull(){
         LoginBody loginBody = new LoginBody();
         loginBody.setEmail(null);
         loginBody.setPassword("cityslicka");
 
         LoginResponse response =  ReqresSpecs.request
-                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -57,13 +56,13 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Unsuccessful login without password")
     void unsuccessfulLoginTestPasswordNull(){
         LoginBody loginBody = new LoginBody();
         loginBody.setEmail("eve.holt@reqres.in");
         loginBody.setPassword(null);
 
         LoginResponse response =  ReqresSpecs.request
-                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -75,13 +74,13 @@ public class LoginTest {
     }
 
     @Test
+    @DisplayName("Unsuccessful login without email and password")
     void unsuccessfulLoginTestBodyNull(){
         LoginBody loginBody = new LoginBody();
         loginBody.setEmail(null);
         loginBody.setPassword(null);
 
         LoginResponse loginResponse = ReqresSpecs.request
-                .filter(restAssured)
                 .body(loginBody)
                 .when()
                 .post("/login")

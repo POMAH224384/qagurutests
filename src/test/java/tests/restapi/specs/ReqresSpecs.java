@@ -1,5 +1,6 @@
 package tests.restapi.specs;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
@@ -10,6 +11,7 @@ import static org.hamcrest.Matchers.containsString;
 
 public class ReqresSpecs {
     public static RequestSpecification request = with()
+            .filter(new AllureRestAssured())
             .baseUri("https://reqres.in")
             .basePath("/api")
             .log().all()
