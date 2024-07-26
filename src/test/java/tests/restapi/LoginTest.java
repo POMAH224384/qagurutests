@@ -23,6 +23,7 @@ public class LoginTest {
         loginBody.setPassword("cityslicka");
 
         LoginResponse response = ReqresSpecs.request
+                .filter(new AllureRestAssured())
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -60,6 +61,7 @@ public class LoginTest {
         loginBody.setPassword(null);
 
         LoginResponse response =  ReqresSpecs.request
+                .filter(new AllureRestAssured())
                 .body(loginBody)
                 .when()
                 .post("/login")
@@ -77,6 +79,7 @@ public class LoginTest {
         loginBody.setPassword(null);
 
         LoginResponse loginResponse = ReqresSpecs.request
+                .filter(new AllureRestAssured())
                 .body(loginBody)
                 .when()
                 .post("/login")
