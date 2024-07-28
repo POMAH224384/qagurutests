@@ -1,22 +1,22 @@
 package tests.restapi.base;
 
-import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInstance;
 import tests.restapi.models.bodies.LoginBody;
-import utils.PropertiesUtil;
+import tests.restapi.models.responses.LoginResponse;
+import tests.restapi.specs.ReqresSpecs;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class LoginTestBase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class LoginTestBase extends MainTestBase{
 
     private static final LoginBody loginBody = new LoginBody();
 
-    protected static final String EMAIL = PropertiesUtil.getProperty("email");
-    protected static final String PASSWORD = PropertiesUtil.getProperty("password");
-    protected static final String TOKEN = PropertiesUtil.getProperty("token");
+    protected static LoginResponse loginResponse;
 
+
+    public String getToken(){
+        successfulLogin(EMAIL, PASSWORD);
+        return loginResponse.getToken();
+    }
 
     public LoginBody setCredit(String emailValue, String passwordValue){
         loginBody.setEmail(emailValue);
@@ -24,9 +24,46 @@ public class LoginTestBase {
         return loginBody;
     }
 
-    @BeforeEach
-    void setUp(){
-        RestAssured.filters(new AllureRestAssured());
+    public void successfulLogin(String email, String password){
+
+        loginResponse = ReqresSpecs.request
+                .body(setCredit(email, password))
+                .when()
+                .post("/login")
+                .then()
+                .spec(ReqresSpecs.responseSpec)
+                .extract().as(LoginResponse.class);
     }
+
+    public void unsuccessfulLogin(String email, String password){
+        loginResponse = ReqresSpecs.request
+                .body(setCredit(email, password))
+                .when()
+                .post("/login")
+                .then()
+                .statusCode(400)
+                .extract().as(LoginResponse.class);
+    }
+
+    public void successfulRegistry(String email, String password){
+        loginResponse = ReqresSpecs.request
+                .body(setCredit(email, password))
+                .when()
+                .post("/register")
+                .then()
+                .spec(ReqresSpecs.responseSpec)
+                .extract().as(LoginResponse.class);
+    }
+
+    public void unsuccessfulRegistry(String email, String password){
+        loginResponse = ReqresSpecs.request
+                .body(setCredit(email, password))
+                .when()
+                .post("/register")
+                .then()
+                .statusCode(400)
+                .extract().as(LoginResponse.class);
+    }
+
 
 }
