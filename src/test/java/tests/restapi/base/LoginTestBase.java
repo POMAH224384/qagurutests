@@ -3,6 +3,7 @@ package tests.restapi.base;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import tests.restapi.models.bodies.LoginBody;
 import utils.PropertiesUtil;
@@ -23,7 +24,7 @@ public class LoginTestBase {
         return loginBody;
     }
 
-    @BeforeAll
+    @BeforeEach
     void setUp(){
         RestAssured.filters(new AllureRestAssured());
     }
