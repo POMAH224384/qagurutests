@@ -1,5 +1,6 @@
 package tests.restapi.tests;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import tests.restapi.base.LoginTestBase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
