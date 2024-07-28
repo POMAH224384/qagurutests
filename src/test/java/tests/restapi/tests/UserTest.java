@@ -1,14 +1,13 @@
 package tests.restapi.tests;
 
+import io.qameta.allure.Owner;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import tests.restapi.base.UserTestBase;
-import tests.restapi.models.responses.UserDataResponse;
-import tests.restapi.models.responses.UserResponse;
-import tests.restapi.specs.ReqresSpecs;
 
+import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,107 +15,80 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserTest extends UserTestBase {
 
     @Test
-    @DisplayName("Get a list of users")
+    @DisplayName("GET /users?page=2")
+    @Owner("Nigger")
     void testListOfUsers(){
-        ReqresSpecs.request
-                .when()
-                .get("/users?page=2")
-                .then()
-                .spec(ReqresSpecs.responseSpec);
+        step("Get a list of users", this::getListOfUsers);
     }
 
     @Test
-    @DisplayName("Get a single user")
+    @DisplayName("GET /users/2")
     @Story("Get a user with id = 2")
+    @Owner("Nigger")
     void testSingleUser(){
-        UserDataResponse data = ReqresSpecs.request
-                .when()
-                .get("/users/2")
-                .then()
-                .spec(ReqresSpecs.responseSpec)
-                .log().body()
-                .extract().as(UserDataResponse.class);
+        step("Send a request to get a user by id", this::getUser);
 
-        assertEquals(2, data.getUserLombok().getId());
+        assertEquals(2, userData.getUserLombok().getId());
     }
 
     @Test
-    @DisplayName("Single user not found")
+    @DisplayName("GET /users/29")
+    @Owner("Nigger")
     void testSingleUserNotFound(){
-        ReqresSpecs.request
-                .when()
-                .get("/users/29")
-                .then()
-                .statusCode(404);
+        step("Send a request to a non-existent user", this::userNotFound);
+
     }
 
     @Test
-    @DisplayName("Create user")
+    @DisplayName("POST /users")
+    @Owner("Nigger")
     void testCreateUser(){
-        UserResponse user = ReqresSpecs.request
-                .body(setUserBody(NAME, JOB))
-                .when()
-                .post("/users")
-                .then()
-                .statusCode(201)
-                .extract().as(UserResponse.class);
+        step("Send a request to create a user",
+                () -> createUser(NAME, JOB));
 
-        assertTrue(user.getName().equals(NAME) && user.getJob().equals(JOB));
+        assertTrue(userResponse.getName().equals(NAME)
+                && userResponse.getJob().equals(JOB));
     }
 
     @Test
-    @DisplayName("Update user's name and job")
+    @DisplayName("PUT /users/2")
+    @Owner("Nigger")
     @Story("Updating user's name and job. User with an id = 2")
     void testUpdateUserName(){
-        UserResponse user = ReqresSpecs.request
-                .body(setUserBody(NAME, JOB))
-                .when()
-                .put("/users/2")
-                .then()
-                .spec(ReqresSpecs.responseSpec)
-                .extract().as(UserResponse.class);
+        step("Send a request to update user by id",
+                () -> updateUser(NAME, JOB));
 
-        assertTrue(user.getName().equals(NAME) && user.getJob().equals(JOB));
+        assertTrue(userResponse.getName().equals(NAME)
+                && userResponse.getJob().equals(JOB));
     }
 
     @Test
-    @DisplayName("Update user's name with null values")
+    @DisplayName("PUT /users/2")
+    @Owner("Nigger")
     void testUpdateUserWithNull(){
-        UserResponse user = ReqresSpecs.request
-                .body(setUserBody(null, null))
-                .log().all()
-                .when()
-                .put("/users/2")
-                .then()
-                .spec(ReqresSpecs.responseSpec)
-                .log().all()
-                .extract().as(UserResponse.class);
+        step("Send a request to update user with null values",
+                () -> updateUser(null, null));
 
-        assertTrue(user.getName() == null && user.getJob() == null);
+        assertTrue(userResponse.getName() == null
+                && userResponse.getJob() == null);
     }
 
     @Test
-    @DisplayName("Update user's name and job using PATCH")
+    @DisplayName("PATCH /users/2")
+    @Owner("Nigger")
     void testUpdateUserWithPatch(){
-        UserResponse user = ReqresSpecs.request
-                .body(setUserBody(NAME, JOB))
-                .when()
-                .patch("/users/2")
-                .then()
-                .spec(ReqresSpecs.responseSpec)
-                .extract().as(UserResponse.class);
+        step("Send a request to update user by id",
+                () -> updateUserPatch(NAME, JOB));
 
-        assertTrue(user.getName().equals(NAME) && user.getJob().equals(JOB));
+        assertTrue(userResponse.getName().equals(NAME)
+                && userResponse.getJob().equals(JOB));
     }
 
     @Test
-    @DisplayName("Delete user")
+    @DisplayName("DELETE /user/2")
+    @Owner("Nigger")
     void testDeleteUser(){
-        ReqresSpecs.request
-                .when()
-                .delete("/user/2")
-                .then()
-                .statusCode(204);
+        step("Send a request to delete user", this::deleteUser);
     }
 
 }
